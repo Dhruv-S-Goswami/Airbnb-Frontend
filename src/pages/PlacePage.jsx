@@ -23,7 +23,9 @@ const PlacePage = () => {
     setLoading(true);
 
     const getPlace = async () => {
-      const { data } = await axios.get(`http://localhost:4000/places/${id}`);
+      const { data } = await axios.get(
+        `https://airbnb-backend-r81v.onrender.com/places/${id}`,
+      );
       setPlace(data.place);
       setLoading(false);
     };
@@ -45,7 +47,7 @@ const PlacePage = () => {
       <AddressLink placeAddress={place.address} />
       <PlaceGallery place={place} />
 
-      <div className="mt-8 mb-8 grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr]">
+      <div className="mb-8 mt-8 grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr]">
         <div className="">
           <div className="my-4 ">
             <h2 className="text-2xl font-semibold">Description</h2>

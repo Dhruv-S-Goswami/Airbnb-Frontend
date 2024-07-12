@@ -15,7 +15,9 @@ const BookingsPage = () => {
   useEffect(() => {
     const getBookings = async () => {
       try {
-        const { data } = await axios.get('http://localhost:4000/bookings');
+        const { data } = await axios.get(
+          'https://airbnb-backend-r81v.onrender.com/bookings',
+        );
         setBookings(data.booking);
         setLoading(false);
       } catch (error) {

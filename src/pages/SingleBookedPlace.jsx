@@ -17,7 +17,9 @@ const SingleBookedPlace = () => {
   const getBookings = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('http://localhost:4000/bookings');
+      const { data } = await axios.get(
+        'https://airbnb-backend-r81v.onrender.com/bookings',
+      );
 
       // filter the data to get current booking
       const filteredBooking = data.booking.filter(

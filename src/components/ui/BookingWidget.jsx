@@ -63,15 +63,18 @@ const BookingWidget = ({ place }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/bookings', {
-        checkIn: dateRange.from,
-        checkOut: dateRange.to,
-        noOfGuests,
-        name,
-        phone,
-        place: id,
-        price: numberOfNights * price,
-      });
+      const response = await axios.post(
+        'https://airbnb-backend-r81v.onrender.com/bookings',
+        {
+          checkIn: dateRange.from,
+          checkOut: dateRange.to,
+          noOfGuests,
+          name,
+          phone,
+          place: id,
+          price: numberOfNights * price,
+        },
+      );
 
       const bookingId = response.data.booking._id;
 
@@ -96,7 +99,7 @@ const BookingWidget = ({ place }) => {
         <div className="flex w-full ">
           <DatePickerWithRange setDateRange={setDateRange} />
         </div>
-        <div className="border-t py-3 px-4">
+        <div className="border-t px-4 py-3">
           <label>Number of guests: </label>
           <input
             type="number"
@@ -108,7 +111,7 @@ const BookingWidget = ({ place }) => {
             onChange={handleBookingData}
           />
         </div>
-        <div className="border-t py-3 px-4">
+        <div className="border-t px-4 py-3">
           <label>Your full name: </label>
           <input
             type="text"

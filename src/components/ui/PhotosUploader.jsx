@@ -9,9 +9,12 @@ const PhotosUploader = ({ addedPhotos, setAddedPhotos }) => {
 
   const addPhotoByLink = async (e) => {
     e.preventDefault();
-    const { data: filename } = await axios.post('http://localhost:4000/upload-by-link', {
-      link: photoLink,
-    });
+    const { data: filename } = await axios.post(
+      'https://airbnb-backend-r81v.onrender.com/upload-by-link',
+      {
+        link: photoLink,
+      },
+    );
     setAddedPhotos((prev) => {
       return [...prev, filename];
     });
@@ -24,9 +27,13 @@ const PhotosUploader = ({ addedPhotos, setAddedPhotos }) => {
     for (let i = 0; i < files.length; i++) {
       data.append('photos', files[i]); // adding all the photos to data one by one
     }
-    const { data: filenames } = await axios.post('http://localhost:4000/upload', data, {
-      headers: { 'Content-type': 'multipart/form-data' },
-    });
+    const { data: filenames } = await axios.post(
+      'https://airbnb-backend-r81v.onrender.com/upload',
+      data,
+      {
+        headers: { 'Content-type': 'multipart/form-data' },
+      },
+    );
     setAddedPhotos((prev) => {
       return [...prev, ...filenames];
     });

@@ -92,23 +92,25 @@ const PlacesFormPage = () => {
       return;
     }
     setLoading(true);
-    axios.get(`http://localhost:4000/places/${id}`).then((response) => {
-      const { place } = response.data;
-      // update the state of formData
-      for (let key in formData) {
-        if (place.hasOwnProperty(key)) {
-          setFormData((prev) => ({
-            ...prev,
-            [key]: place[key],
-          }));
+    axios
+      .get(`https://airbnb-backend-r81v.onrender.com/places/${id}`)
+      .then((response) => {
+        const { place } = response.data;
+        // update the state of formData
+        for (let key in formData) {
+          if (place.hasOwnProperty(key)) {
+            setFormData((prev) => ({
+              ...prev,
+              [key]: place[key],
+            }));
+          }
         }
-      }
 
-      // update photos state separately
-      setAddedPhotos([...place.photos]);
+        // update photos state separately
+        setAddedPhotos([...place.photos]);
 
-      setLoading(false);
-    });
+        setLoading(false);
+      });
   }, [id]);
 
   const preInput = (header, description) => {
@@ -131,14 +133,17 @@ const PlacesFormPage = () => {
     if (formDataIsValid) {
       if (id) {
         // update existing place
-        const { data } = await axios.put('http://localhost:4000/places/update-place', {
-          id,
-          ...placeData,
-        });
+        const { data } = await axios.put(
+          'https://airbnb-backend-r81v.onrender.com/places/update-place',
+          {
+            id,
+            ...placeData,
+          },
+        );
       } else {
         // new place
         const { data } = await axios.post(
-          'http://localhost:4000/places/add-places',
+          'https://airbnb-backend-r81v.onrender.com/places/add-places',
           placeData,
         );
       }
@@ -210,7 +215,7 @@ const PlacesFormPage = () => {
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
           <div>
-            <h3 className="mt-2 -mb-1">Max no. of guests</h3>
+            <h3 className="-mb-1 mt-2">Max no. of guests</h3>
             <input
               type="text"
               name="maxGuests"
@@ -220,7 +225,7 @@ const PlacesFormPage = () => {
             />
           </div>
           <div>
-            <h3 className="mt-2 -mb-1">Price per night</h3>
+            <h3 className="-mb-1 mt-2">Price per night</h3>
             <input
               type="number"
               name="price"
@@ -230,7 +235,7 @@ const PlacesFormPage = () => {
             />
           </div>
         </div>
-        <button className="mx-auto my-4 flex rounded-full bg-primary py-3 px-20 text-xl font-semibold text-white">
+        <button className="mx-auto my-4 flex rounded-full bg-primary px-20 py-3 text-xl font-semibold text-white">
           Save
         </button>
       </form>
